@@ -106,7 +106,7 @@ export default function About() {
                     </p>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-10 md:gap-10">
+                <div className="grid md:grid-cols-2 gap-10">
 
                     <motion.div variants={itemVariants}>
                         <div className="flex items-center gap-3 mb-5 sm:mb-6">
@@ -120,7 +120,7 @@ export default function About() {
                         </div>
 
                         <div className="space-y-3 sm:space-y-4">
-                            {education.map((edu, i) => (
+                            {education.map((edu) => (
                                 <motion.div
                                     key={edu.name}
                                     variants={itemVariants}
@@ -148,10 +148,6 @@ export default function About() {
                                             {edu.level} • {edu.period}
                                         </p>
                                     </div>
-
-                                    <span className="text-[10px] sm:text-xs font-bold text-blue-600 bg-blue-50 px-2 sm:px-2.5 py-1 rounded-full shrink-0">
-                                        {String(i + 1).padStart(2, '0')}
-                                    </span>
                                 </motion.div>
                             ))}
                         </div>
