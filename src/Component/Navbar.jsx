@@ -38,13 +38,35 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
+        return () => {
+            document.body.style.overflow = ''
+        }
+    }, [menuOpen])
+
     const handleClick = (e, href) => {
         e.preventDefault()
-        const target = document.querySelector(href)
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
+
+        const wasMobileMenuOpen = menuOpen
         setMenuOpen(false)
+
+        const scrollToTarget = () => {
+            const target = document.querySelector(href)
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+        }
+
+        if (wasMobileMenuOpen) {
+            setTimeout(scrollToTarget, 320)
+        } else {
+            scrollToTarget()
+        }
     }
 
     return (
@@ -93,7 +115,7 @@ export default function Navbar() {
 
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
+                    className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors relative z-10"
                     aria-label="Toggle menu"
                 >
                     <div className="flex flex-col gap-1.5">
